@@ -12,12 +12,13 @@ public class NPCCivilian : NPC {
 		StartCoroutine(Run());
 	}
 
-	void MoveRandom() {
+	public void MoveRandom() {
 		agent.SetDestination(new Vector3(Random.Range(-13f, 13f), 0, Random.Range(-13f, 13f)));
 	}
 
-	void RunAway() {
+	public void RunAway(Vector3 origin) {
 		StopCoroutine(Run());
+		agent.SetDestination((transform.position - origin) * 100);
 	}
 
 	IEnumerator Run() {

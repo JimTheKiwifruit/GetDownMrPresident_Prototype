@@ -25,6 +25,11 @@ public class PlayerTakedown : MonoBehaviour {
 				Destroy(ass.GetComponent<NPC>());
 				gameObject.tag = "Untagged";
 				GetComponent<Rigidbody>().AddForce(Vector3.Normalize(ass.transform.position - transform.position) * 35, ForceMode.VelocityChange);
+
+				NPCCivilian[] civils = FindObjectsOfType<NPCCivilian>();
+				foreach (NPCCivilian npc in civils) {
+					npc.RunAway(ass.transform.position);
+				}
 			}
 		}
 	}
