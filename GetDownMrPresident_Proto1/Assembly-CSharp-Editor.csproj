@@ -165,6 +165,9 @@
  <Reference Include="UnityEditor.TreeEditor">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
+ <Reference Include="SSAA">
+ <HintPath>C:/Users/James/Documents/GitHub/GetDownMrPresident_Prototype/GetDownMrPresident_Proto1/Assets/Super Sampling (SSAA)/Data/SSAA.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -179,9 +182,6 @@
  </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="SSAA">
- <HintPath>C:/Users/James/Documents/GitHub/GetDownMrPresident_Prototype/GetDownMrPresident_Proto1/Assets/Super Sampling (SSAA)/Data/SSAA.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
