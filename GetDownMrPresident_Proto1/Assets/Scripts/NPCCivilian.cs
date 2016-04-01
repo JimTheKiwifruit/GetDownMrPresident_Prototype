@@ -16,6 +16,10 @@ public class NPCCivilian : NPC {
 		agent.SetDestination(new Vector3(Random.Range(-13f, 13f), 0, Random.Range(-13f, 13f)));
 	}
 
+	void RunAway() {
+		StopCoroutine(Run());
+	}
+
 	IEnumerator Run() {
 		while (true) {
 			MoveRandom();
