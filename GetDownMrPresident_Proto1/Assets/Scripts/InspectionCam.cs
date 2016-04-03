@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class InspectionCam : MonoBehaviour {
 
+	public int playerNum = 1;
 	public float sensitivity = 0.4f;
 	
 	void Start() {
@@ -12,7 +13,7 @@ public class InspectionCam : MonoBehaviour {
 	}
 	
 	void Update() {
-		Vector3 v = new Vector3(Input.GetAxis("HorizontalInspect"), 0, Input.GetAxis("VerticalInspect"));
+		Vector3 v = new Vector3(Input.GetAxis("HorizontalInspect" + playerNum), 0, Input.GetAxis("VerticalInspect" + playerNum));
 		v = transform.TransformDirection(v);
 		v = Vector3.ProjectOnPlane(v, Vector3.down);
 		v *= sensitivity;

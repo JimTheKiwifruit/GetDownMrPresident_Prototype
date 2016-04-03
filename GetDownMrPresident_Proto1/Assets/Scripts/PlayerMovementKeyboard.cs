@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovementKeyboard : MonoBehaviour {
 
-	public static PlayerMovement main;
+	public static PlayerMovementKeyboard main;
 
 	Rigidbody rigid;
-
-	public int playerNum = 1;
 	public float speed = 0.1f;
 	public float runMultiplyer = 2;
 	public KeyCode runKey = KeyCode.LeftShift;
@@ -25,13 +23,13 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update() {
-		if (locked) {
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
-		} else {
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
-		}
+		//if (locked) {
+		//	Cursor.visible = false;
+		//	Cursor.lockState = CursorLockMode.Locked;
+		//} else {
+		//	Cursor.visible = true;
+		//	Cursor.lockState = CursorLockMode.None;
+		//}
 
 		if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), jumpRaycastDistance)) {
 			//jump
@@ -46,7 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		Vector3 v = new Vector3(Input.GetAxis("Horizontal" + playerNum) * speed, 0, Input.GetAxis("Vertical" + playerNum) * actSpeed);
+		Vector3 v = new Vector3(Input.GetAxis("Horizontal2") * speed, 0, Input.GetAxis("Vertical2") * actSpeed);
 		//v = transform.TransformDirection(v);
 		v = Camera.main.transform.TransformDirection(v);
 		v = Vector3.ProjectOnPlane(v, Vector3.down);

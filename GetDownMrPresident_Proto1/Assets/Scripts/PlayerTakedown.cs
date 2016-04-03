@@ -6,9 +6,10 @@ using System.Collections.Generic;
 public class PlayerTakedown : MonoBehaviour {
 
 	public float minDistance = 1.5f;
+	public int playerNum = 1;
 
 	void Update() {
-		if (Input.GetButtonDown("Takedown")) {
+		if (Input.GetButtonDown("Takedown" + playerNum)) {
 			Takedown();
 		}
 	}

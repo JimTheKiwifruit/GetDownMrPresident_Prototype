@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\NPC.cs" />
      <Compile Include="Assets\Scripts\NPCCivilian.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovementKeyboard.cs" />
      <Compile Include="Assets\Scripts\PlayerTakedown.cs" />
      <Compile Include="Assets\Super Sampling (SSAA)\SuperSampling_SSAA.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
