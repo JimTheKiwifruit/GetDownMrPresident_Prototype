@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d777ca8a32d71e645ba019452ebe7bd2
-timeCreated: 1460847458
+guid: cab002341d68db542abfb2742fcd28c8
+timeCreated: 1460847457
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -102,7 +102,7 @@ ModelImporter:
     400092: Wrist.L
     400094: Wrist.R
     4300000: Dude.001
-    7400000: Walk
+    7400000: Idle
     9500000: //RootNode
     13700000: Dude.001
   materials:
@@ -127,10 +127,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk
+      name: Idle
       takeName: Armature|ArmatureAction
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

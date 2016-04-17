@@ -6,10 +6,16 @@ using System.Collections.Generic;
 public class NPCCivilian : NPC {
 
 	NavMeshAgent agent;
+	Animator animator;
 
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
+		animator = GetComponentInChildren<Animator>();
 		StartCoroutine(Run());
+	}
+
+	void Update() {
+		animator.SetFloat("Speed", agent.velocity.magnitude);
 	}
 
 	public void MoveRandom() {
@@ -19,6 +25,7 @@ public class NPCCivilian : NPC {
 	public void RunAway(Vector3 origin) {
 		StopCoroutine(Run());
 		agent.SetDestination((transform.position - origin) * 100);
+		
 	}
 
 	IEnumerator Run() {
