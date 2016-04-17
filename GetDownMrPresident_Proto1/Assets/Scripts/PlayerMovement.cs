@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public static PlayerMovement main;
+	//public static PlayerMovement main;
 
 	Rigidbody rigid;
 	Animator animator;
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
 	public bool locked = true;
 
 	void Start() {
-		main = this;
+		//main = this;
 		rigid = GetComponent<Rigidbody>();
 		animator = GetComponentInChildren<Animator>();
 		actSpeed = speed;
