@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 	public static PlayerMovement main;
 
 	Rigidbody rigid;
+	Animator animator;
 
 	public int playerNum = 1;
 	public float speed = 0.1f;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start() {
 		main = this;
 		rigid = GetComponent<Rigidbody>();
+		animator = GetComponentInChildren<Animator>();
 		actSpeed = speed;
 	}
 
@@ -43,6 +45,8 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			actSpeed = speed;
 		}
+
+		animator.SetFloat("Speed", rigid.velocity.magnitude);
 	}
 
 	void FixedUpdate() {
@@ -61,6 +65,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		rigid.AddForce(Physics.gravity * 1.5f, ForceMode.Acceleration);
+
+		if (rigid.velocity.magnitude > 0.3f)
+			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rigid.velocity), 0.1f);
+		transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 	}
 
 }
