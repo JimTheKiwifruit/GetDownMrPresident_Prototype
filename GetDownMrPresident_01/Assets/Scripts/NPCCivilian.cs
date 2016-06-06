@@ -50,7 +50,7 @@ public class NPCCivilian : NPC {
 
 	public void GoToCrowd() {
 		setInCrowd();
-		GameObject p = GameObject.Find("TempStage");
+		GameObject p = GameObject.Find("Stage");
 		Vector3 pod = p.transform.position;
 		float randx = Random.Range(-5f, 5f);
 		float randz = Random.Range(-5f, 5f);

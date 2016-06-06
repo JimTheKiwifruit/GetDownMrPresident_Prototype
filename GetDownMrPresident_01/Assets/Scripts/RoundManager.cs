@@ -31,7 +31,9 @@ public class RoundManager : MonoBehaviour {
     GameScore gameScore;
 
 
-	void Awake() {
+    public GameObject player;
+
+    void Awake() {
 		main = this;
 		//roundTimeText.text = "" + Mathf.Round(roundTime);
     }
@@ -65,6 +67,30 @@ public class RoundManager : MonoBehaviour {
 		while (mainTitle.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) {
 			yield return null;
 		}
+
+        //while (true)
+        //{
+        //    if(Input.GetAxis("DpadX1") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(13,0,13), Quaternion.identity);
+        //        break;
+        //    }else if(Input.GetAxis("DpadX2") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(-13, 0, -13), Quaternion.identity);
+        //        break;
+        //    }
+        //    else if (Input.GetAxis("DpadY1") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(-13, 0, 13), Quaternion.identity);
+        //        break;
+        //    }
+        //    else if (Input.GetAxis("DpadY2") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(13, 0, -13), Quaternion.identity);
+        //        break;
+        //    }
+        //}
+
 		mainTitle.gameObject.SetActive(false);
 		blur.enabled = false;
 		disableAssassin.enabled = true;
