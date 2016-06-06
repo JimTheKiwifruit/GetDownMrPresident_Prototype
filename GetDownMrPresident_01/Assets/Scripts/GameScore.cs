@@ -1,32 +1,98 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameScore : MonoBehaviour {
-    
 
-    int duration;
-    int seconds;
-    int mins;
-    string durationString;
+    public static GameScore main;
 
+    public float defaultRoundTime = 10;
+    float roundTime;
+    public Text roundTimeText;
+
+    public int firstPlayerScore = 0;
+    public int secondPlayerScore = 0;
+    public Text scoreOne;
+    public Text scoreTwo;
+
+    bool firstPlayerIsAssassin = true;
+
+    RoundManager roundManager;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        if (main == null) { main = this; }
+        else { Destroy(gameObject); }
+    }
 
     // Use this for initialization
-    void Start () {
-        updateDuration();
+    void Start ()
+    {
+        roundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RoundManager>();
+
+        scoreOne.text = firstPlayerScore.ToString();
+        scoreTwo.text = secondPlayerScore.ToString();
+        newRoundStarted();
     }
 	
 	// Update is called once per frame
-	void Update () {
-        updateDuration();
+	void Update ()
+    {
+        if (roundManager == null) {
+            roundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RoundManager>();
+        }
 
-        print(durationString);
+        RoundManager.RoundState roundState = roundManager.GetRoundState();
+
+        if (roundState == RoundManager.RoundState.Playing)
+        {
+            roundTime -= Time.deltaTime;
+            roundTimeText.text = "" + Mathf.Round(roundTime);
+            if (roundTime < 0)
+            {
+                roundManager.OutOfTime();
+            }            
+        }
     }
 
-    void updateDuration()
+    public void newRoundStarted()
     {
-        duration = (int)Time.time;
-        seconds = duration % 60;
-        mins = (duration - mins) / 60;
-        durationString = mins.ToString("00") + ":" + seconds.ToString("00");
+        roundTime = defaultRoundTime;
+        roundTimeText.text = "" + Mathf.Round(roundTime);
+    }
+    
+    public void bodyguardWins()
+    {
+        if (firstPlayerIsAssassin)
+        {
+            secondPlayerScore++;
+        }
+        else
+        {
+            firstPlayerScore++;
+        }
+        scoreOne.text = firstPlayerScore.ToString();
+        scoreTwo.text = secondPlayerScore.ToString();
+    }
+
+    public void assassinWins()
+    {
+        if (firstPlayerIsAssassin)
+        {
+            firstPlayerScore++;
+        }
+        else
+        {
+            secondPlayerScore++;
+        }
+        scoreOne.text = firstPlayerScore.ToString();
+        scoreTwo.text = secondPlayerScore.ToString();
+    }
+    
+
+    public void newRoundStart()
+    {
+        firstPlayerIsAssassin = !firstPlayerIsAssassin;
     }
 }

@@ -19,7 +19,7 @@ public class RoundManager : MonoBehaviour {
 	public Blur blur;
 	public AudioSource musicSource;
 
-	public float roundTime = 60;
+	public float roundTime = 90;
 	public Text roundTimeText;
 
 	public PlayerMovement disableAssassin;
@@ -27,29 +27,39 @@ public class RoundManager : MonoBehaviour {
 	public PlayerMovement disableBodyguard;
 
 	RoundState state = RoundState.Idle;
+    
+    GameScore gameScore;
+
 
 	void Awake() {
 		main = this;
-		roundTimeText.text = "" + Mathf.Round(roundTime);
-	}
+		//roundTimeText.text = "" + Mathf.Round(roundTime);
+    }
 
 	void Start() {
 		disableAssassin.enabled = false;
 		disableAssassinTakedown.enabled = false;
 		disableBodyguard.enabled = false;
 		StartCoroutine(StartHideMainTitle());
-	}
+        
+        gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
+    }
 
 	void Update() {
-		if (state == RoundState.Playing) {
-			roundTime -= Time.deltaTime;
-			if (roundTime < 0) {
-				roundTime = 0;
-				OutOfTime();
-			}
-			roundTimeText.text = "" + Mathf.Round(roundTime);
-		}
+		//if (state == RoundState.Playing) {
+		//	roundTime -= Time.deltaTime;
+		//	if (roundTime < 0) {
+		//		roundTime = 0;
+		//		OutOfTime();
+		//	}
+		//	roundTimeText.text = "" + Mathf.Round(roundTime);
+		//}
 	}
+
+    public RoundState GetRoundState() {
+        return state;
+    }
+
 
 	IEnumerator StartHideMainTitle() {
 		while (mainTitle.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) {
@@ -62,6 +72,8 @@ public class RoundManager : MonoBehaviour {
 		disableBodyguard.enabled = true;
 		musicSource.Play();
 		state = RoundState.Playing;
+
+        gameScore.newRoundStarted();
 	}
 
 	public void AssassinRevealed() {
@@ -82,7 +94,9 @@ public class RoundManager : MonoBehaviour {
 	}
 
 	IEnumerator EPresidentDown() {
-		yield return new WaitForSeconds(4);
+        gameScore.assassinWins();
+
+        yield return new WaitForSeconds(4);
 		NewRound();
 	}
 
@@ -96,7 +110,9 @@ public class RoundManager : MonoBehaviour {
 	}
 
 	IEnumerator EPresidentSaved() {
-		yield return new WaitForSeconds(4);
+        gameScore.bodyguardWins();
+
+        yield return new WaitForSeconds(4);
 		NewRound();
 	}
 
@@ -110,12 +126,16 @@ public class RoundManager : MonoBehaviour {
 	}
 
 	IEnumerator EOutOfTime() {
-		yield return new WaitForSeconds(3);
+        gameScore.bodyguardWins();
+
+        yield return new WaitForSeconds(3);
 		NewRound();
 	}
 
 	public void NewRound() {
 		SceneManager.LoadScene(0);
-	}
+
+        gameScore.newRoundStart();
+    }
 
 }
