@@ -97,16 +97,23 @@ public class GameScore : MonoBehaviour
         return firstPlayerIsAssassin;
     }
 
+    public int getPlayerNum(string objName)
+    {
+        if (objName == "Dev_Player_01 (Assassin)")
+        {
+            return firstPlayerIsAssassin ? 1 : 2;
+        }
+        else if (objName == "Dev_Player_01 (Bodyguard)")
+        {
+            return firstPlayerIsAssassin ? 2 : 1;
+        }
+        else return 3;
+    }
+
 
     public void newRoundStart()
     {
         // Switch player characters
         firstPlayerIsAssassin = !firstPlayerIsAssassin;
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
-        playerObjects[0].GetComponent<PlayerMovement>().TogglePlayerNum();
-        playerObjects[0].GetComponent<PlayerTakedown>().TogglePlayerNum();
-        playerObjects[1].GetComponent<PlayerMovement>().TogglePlayerNum();
-        playerObjects[1].GetComponent<PlayerTakedown>().TogglePlayerNum();
-
     }
 }
