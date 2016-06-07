@@ -66,16 +66,19 @@ public class GameScore : MonoBehaviour
 
     public void bodyguardWins()
     {
-        if (firstPlayerIsAssassin)
-        {
+        if (firstPlayerIsAssassin){
             secondPlayerScore++;
+            scoreTwo.text = secondPlayerScore.ToString();
         }
-        else
-        {
+        else{
             firstPlayerScore++;
+            scoreOne.text = firstPlayerScore.ToString();
         }
-        scoreOne.text = firstPlayerScore.ToString();
-        scoreTwo.text = secondPlayerScore.ToString();
+
+        if (firstPlayerScore > 5 || secondPlayerScore > 5)
+        {
+            GameOver();
+        }
     }
 
     public void assassinWins()
@@ -83,13 +86,31 @@ public class GameScore : MonoBehaviour
         if (firstPlayerIsAssassin)
         {
             firstPlayerScore++;
+            scoreOne.text = firstPlayerScore.ToString();
         }
         else
         {
             secondPlayerScore++;
+            scoreTwo.text = secondPlayerScore.ToString();
+        }        
+
+        if (firstPlayerScore > 5 || secondPlayerScore > 5)
+        {
+            GameOver();
         }
-        scoreOne.text = firstPlayerScore.ToString();
-        scoreTwo.text = secondPlayerScore.ToString();
+    }
+
+    public void GameOver()
+    {
+        // Game over logic to go here
+        if (firstPlayerScore > 5)
+        {
+            // First player wins
+        }
+        else if (secondPlayerScore > 5)
+        {
+            // Second player wins
+        }
     }
 
     public bool playerOneIsAssassin()
@@ -113,7 +134,6 @@ public class GameScore : MonoBehaviour
 
     public void newRoundStart()
     {
-        // Switch player characters
         firstPlayerIsAssassin = !firstPlayerIsAssassin;
     }
 }
