@@ -100,6 +100,13 @@ public class GameScore : MonoBehaviour
 
     public void newRoundStart()
     {
+        // Switch player characters
         firstPlayerIsAssassin = !firstPlayerIsAssassin;
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        playerObjects[0].GetComponent<PlayerMovement>().TogglePlayerNum();
+        playerObjects[0].GetComponent<PlayerTakedown>().TogglePlayerNum();
+        playerObjects[1].GetComponent<PlayerMovement>().TogglePlayerNum();
+        playerObjects[1].GetComponent<PlayerTakedown>().TogglePlayerNum();
+
     }
 }

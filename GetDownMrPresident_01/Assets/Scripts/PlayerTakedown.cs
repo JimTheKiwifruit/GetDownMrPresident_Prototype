@@ -16,7 +16,13 @@ public class PlayerTakedown : MonoBehaviour {
 		}
 	}
 
-	public void Takedown() {
+    public void TogglePlayerNum()
+    {
+        if (playerNum == 1) { playerNum = 2; }
+        if (playerNum == 2) { playerNum = 1; }
+    }
+
+    public void Takedown() {
 		PlayerTakedown[] targets = FindObjectsOfType<PlayerTakedown>();
 		foreach (PlayerTakedown target in targets) {
 			if (target.playerNum == this.playerNum)

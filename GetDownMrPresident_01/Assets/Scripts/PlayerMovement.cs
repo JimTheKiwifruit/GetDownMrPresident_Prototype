@@ -22,6 +22,12 @@ public class PlayerMovement : MonoBehaviour {
 		actSpeed = speed;
 	}
 
+    public void TogglePlayerNum()
+    {
+        if (playerNum == 1) { playerNum = 2; }
+        if (playerNum == 2) { playerNum = 1; }
+    }
+
 	void Update() {
 		if (locked) {
 			Cursor.visible = false;
