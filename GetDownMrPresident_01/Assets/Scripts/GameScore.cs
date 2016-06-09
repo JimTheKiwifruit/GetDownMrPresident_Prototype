@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-<<<<<<< HEAD
 using UnityEngine.UI;
 
 public class GameScore : MonoBehaviour
@@ -135,7 +134,12 @@ public class GameScore : MonoBehaviour
         {
             return firstPlayerIsAssassin ? 2 : 1;
         }
-        else return 3;
+        else return -1;
+    }
+
+    public int getAssassinPlayerNum()
+    {
+        return firstPlayerIsAssassin ? 1 : 2;
     }
 
 
@@ -145,48 +149,20 @@ public class GameScore : MonoBehaviour
 		flipPlayerImages ();
     }
 
-	public void flipPlayerImages(){
-		if (firstPlayerIsAssassin) {
-			redSecurity.enabled = false;
-			blueSecurity.enabled = true;
-			redAssassin.enabled = true;
-			blueAssassin.enabled = false;
-		} else {
-			redSecurity.enabled = true;
-			blueSecurity.enabled = false;
-			redAssassin.enabled = false;
-			blueAssassin.enabled = true;
-		}
-	}
-=======
-
-public class GameScore : MonoBehaviour {
-    
-
-    int duration;
-    int seconds;
-    int mins;
-    string durationString;
-
-
-    // Use this for initialization
-    void Start () {
-        updateDuration();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        updateDuration();
-
-        print(durationString);
-    }
-
-    void updateDuration()
+    public void flipPlayerImages()
     {
-        duration = (int)Time.time;
-        seconds = duration % 60;
-        mins = (duration - mins) / 60;
-        durationString = mins.ToString("00") + ":" + seconds.ToString("00");
+        if (firstPlayerIsAssassin)
+        {
+            redSecurity.enabled = false;
+            blueSecurity.enabled = true;
+            redAssassin.enabled = true;
+            blueAssassin.enabled = false;
+        }
+        else {
+            redSecurity.enabled = true;
+            blueSecurity.enabled = false;
+            redAssassin.enabled = false;
+            blueAssassin.enabled = true;
+        }
     }
->>>>>>> master
 }

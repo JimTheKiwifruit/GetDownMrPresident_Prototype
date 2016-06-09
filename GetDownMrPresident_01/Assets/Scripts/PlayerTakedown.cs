@@ -4,8 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerTakedown : MonoBehaviour {
-
-<<<<<<< HEAD
+    
     GameScore gameScore;
 
     public float minDistance = 1.5f;
@@ -16,12 +15,7 @@ public class PlayerTakedown : MonoBehaviour {
         gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
         playerNum = gameScore.getPlayerNum(this.name);
     }
-
-=======
-	public float minDistance = 1.5f;
-	public int playerNum = 1;
-
->>>>>>> master
+    
 	void Update() {
 		// Assuming that player 1 is assassin, will need to be changed when player switching is implemented
 		if (playerNum > -1 && Input.GetButtonDown("AButton" + playerNum)) {
@@ -29,12 +23,7 @@ public class PlayerTakedown : MonoBehaviour {
 			Takedown();
 		}
 	}
-
-<<<<<<< HEAD
-    public void Takedown() {
-=======
 	public void Takedown() {
->>>>>>> master
 		PlayerTakedown[] targets = FindObjectsOfType<PlayerTakedown>();
 		foreach (PlayerTakedown target in targets) {
 			if (target.playerNum == this.playerNum)
