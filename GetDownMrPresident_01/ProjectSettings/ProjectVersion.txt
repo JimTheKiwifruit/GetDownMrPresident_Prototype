@@ -1,2 +1,14 @@
+<<<<<<< Updated upstream
 m_EditorVersion: 5.3.3f1
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+m_EditorVersion: 5.3.4f1
+=======
+m_EditorVersion: 5.3.3f1
+>>>>>>> master
+=======
+m_EditorVersion: 5.3.3f1
+>>>>>>> master
+>>>>>>> Stashed changes
 m_StandardAssetsVersion: 0

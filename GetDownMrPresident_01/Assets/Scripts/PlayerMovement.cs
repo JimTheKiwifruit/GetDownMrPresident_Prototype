@@ -8,9 +8,13 @@ public class PlayerMovement : MonoBehaviour {
 	Rigidbody rigid;
 	Animator animator;
 
+<<<<<<< HEAD
     GameScore gameScore;
 
     public int playerNum = 1;
+=======
+	public int playerNum = 1;
+>>>>>>> master
 
 	public float speed = 1.8f;
 	public float runMultiplier = 2f;
@@ -22,10 +26,14 @@ public class PlayerMovement : MonoBehaviour {
 		rigid = GetComponent<Rigidbody>();
 		animator = GetComponentInChildren<Animator>();
 		actSpeed = speed;
+<<<<<<< HEAD
 
         gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
         playerNum = gameScore.getPlayerNum(this.name);
     }
+=======
+	}
+>>>>>>> master
 
 	void Update() {
 		if (locked) {
@@ -47,7 +55,10 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         Vector3 v = new Vector3(Input.GetAxis("LeftStickX" + playerNum) * actSpeed, 0, Input.GetAxis("LeftStickY" + playerNum) * actSpeed);
         
         v = Camera.main.transform.TransformDirection(v);

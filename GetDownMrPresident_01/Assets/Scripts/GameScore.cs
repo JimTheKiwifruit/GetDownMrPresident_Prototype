@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+<<<<<<< HEAD
 using UnityEngine.UI;
 
 public class GameScore : MonoBehaviour
@@ -19,6 +20,12 @@ public class GameScore : MonoBehaviour
     bool firstPlayerIsAssassin = true;
 
     RoundManager roundManager;
+
+	public Image blueAssassin;
+	public Image blueSecurity;
+	public Image redAssassin;
+	public Image redSecurity;
+
 
     void Awake()
     {
@@ -135,5 +142,51 @@ public class GameScore : MonoBehaviour
     public void newRoundStart()
     {
         firstPlayerIsAssassin = !firstPlayerIsAssassin;
+		flipPlayerImages ();
     }
+
+	public void flipPlayerImages(){
+		if (firstPlayerIsAssassin) {
+			redSecurity.enabled = false;
+			blueSecurity.enabled = true;
+			redAssassin.enabled = true;
+			blueAssassin.enabled = false;
+		} else {
+			redSecurity.enabled = true;
+			blueSecurity.enabled = false;
+			redAssassin.enabled = false;
+			blueAssassin.enabled = true;
+		}
+	}
+=======
+
+public class GameScore : MonoBehaviour {
+    
+
+    int duration;
+    int seconds;
+    int mins;
+    string durationString;
+
+
+    // Use this for initialization
+    void Start () {
+        updateDuration();
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        updateDuration();
+
+        print(durationString);
+    }
+
+    void updateDuration()
+    {
+        duration = (int)Time.time;
+        seconds = duration % 60;
+        mins = (duration - mins) / 60;
+        durationString = mins.ToString("00") + ":" + seconds.ToString("00");
+    }
+>>>>>>> master
 }
