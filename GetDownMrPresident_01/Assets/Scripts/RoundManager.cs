@@ -41,6 +41,10 @@ public class RoundManager : MonoBehaviour
         disableAssassin.enabled = false;
         disableAssassinTakedown.enabled = false;
         disableBodyguard.enabled = false;
+
+        //Is this where we should be choosing the spawn point?
+        SelectSpawn();
+
         StartCoroutine(StartHideMainTitle());
 
         gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
@@ -65,34 +69,6 @@ public class RoundManager : MonoBehaviour
         }
 
 
-        // General idea of this seems correct. Expect it could be done much more efficiently though.
-        // Maybe best to create a new function that then calls this function once assassin selects
-        // their starting location?
-
-        //while (true)
-        //{
-        //    if (Input.GetAxis("DpadX1") > 0)
-        //    {
-        //        Instantiate(player, new Vector3(13, 0, 13), Quaternion.identity);
-        //        break;
-        //    }
-        //    else if (Input.GetAxis("DpadX2") > 0)
-        //    {
-        //        Instantiate(player, new Vector3(-13, 0, -13), Quaternion.identity);
-        //        break;
-        //    }
-        //    else if (Input.GetAxis("DpadY1") > 0)
-        //    {
-        //        Instantiate(player, new Vector3(-13, 0, 13), Quaternion.identity);
-        //        break;
-        //    }
-        //    else if (Input.GetAxis("DpadY2") > 0)
-        //    {
-        //        Instantiate(player, new Vector3(13, 0, -13), Quaternion.identity);
-        //        break;
-        //    }
-        //}
-
         mainTitle.gameObject.SetActive(false);
         blur.enabled = false;
         disableAssassin.enabled = true;
@@ -104,6 +80,34 @@ public class RoundManager : MonoBehaviour
         gameScore.newRoundStarted();
     }
 
+    public IEnumerator SelectSpawn()
+    {
+
+        while (state != RoundState.Playing)
+        {
+            if (Input.GetAxis("DpadX1") > 0)
+            {
+                Instantiate(player, new Vector3(13, 0, 13), Quaternion.identity);
+
+            }
+            else if (Input.GetAxis("DpadX1") < 0)
+            {
+                Instantiate(player, new Vector3(-13, 0, -13), Quaternion.identity);
+
+            }
+            else if (Input.GetAxis("DpadY1") > 0)
+            {
+                Instantiate(player, new Vector3(-13, 0, 13), Quaternion.identity);
+
+            }
+            else if (Input.GetAxis("DpadY1") < 0)
+            {
+                Instantiate(player, new Vector3(13, 0, -13), Quaternion.identity);
+
+            }
+            yield return new WaitForSeconds(4);
+        }
+    }
     public void AssassinRevealed()
     {
 
