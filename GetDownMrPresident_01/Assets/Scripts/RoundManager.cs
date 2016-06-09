@@ -115,7 +115,6 @@ public class RoundManager : MonoBehaviour
             CrowdSpawner spawner = (CrowdSpawner)spawners[i];
             spawner.SpawnCrowd();
         }
-        print(spawners[0]);
 
         state = RoundState.Playing;
         gameScore.newRoundStarted();
