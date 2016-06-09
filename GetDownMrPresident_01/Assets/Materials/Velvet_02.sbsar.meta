@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a8e92f00cf8026a44b77ad082d3a3d8e
-timeCreated: 1465253610
+timeCreated: 1465436057
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -36,9 +36,9 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Colour
       value:
-        scalar[0]: 0.2439347
-        scalar[1]: 0.4852941
-        scalar[2]: 0.18974999
+        scalar[0]: 0.28749233
+        scalar[1]: 0.45588237
+        scalar[2]: 0.24769105
         scalar[3]: 1
         texture: {instanceID: 0}
     materialInformation:

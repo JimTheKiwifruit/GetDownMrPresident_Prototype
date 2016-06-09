@@ -7,8 +7,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	Rigidbody rigid;
 	Animator animator;
+    
+    GameScore gameScore;
 
-	public int playerNum = 1;
+    public int playerNum = 1;
 
 	public float speed = 1.8f;
 	public float runMultiplier = 2f;
@@ -20,7 +22,10 @@ public class PlayerMovement : MonoBehaviour {
 		rigid = GetComponent<Rigidbody>();
 		animator = GetComponentInChildren<Animator>();
 		actSpeed = speed;
-	}
+
+        gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
+        playerNum = gameScore.getPlayerNum(this.name);
+    }
 
 	void Update() {
 		if (locked) {

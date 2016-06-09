@@ -46,15 +46,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\NCPCivilianRandom.cs" />
+     <Compile Include="Assets\Scripts\CanvasManager.cs" />
      <Compile Include="Assets\Scripts\CrowdSpawner.cs" />
      <Compile Include="Assets\Scripts\GameScore.cs" />
      <Compile Include="Assets\Scripts\InspectionCam.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\NPC.cs" />
      <Compile Include="Assets\Scripts\NPCCivilian.cs" />
      <Compile Include="Assets\Scripts\NPCPresidentAI.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerMovementKeyboard.cs" />
      <Compile Include="Assets\Scripts\PlayerTakedown.cs" />
+     <Compile Include="Assets\Scripts\ReadyUp.cs" />
      <Compile Include="Assets\Scripts\RoundManager.cs" />
      <Compile Include="Assets\Scripts\ShirtRandomiser.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
