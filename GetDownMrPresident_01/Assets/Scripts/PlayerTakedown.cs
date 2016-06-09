@@ -5,16 +5,8 @@ using System.Collections.Generic;
 
 public class PlayerTakedown : MonoBehaviour {
 
-    GameScore gameScore;
-
-    public float minDistance = 1.5f;
+	public float minDistance = 1.5f;
 	public int playerNum = 1;
-
-    void Start()
-    {
-        gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
-        playerNum = gameScore.getPlayerNum(this.name);
-    }
 
 	void Update() {
 		// Assuming that player 1 is assassin, will need to be changed when player switching is implemented
@@ -24,7 +16,7 @@ public class PlayerTakedown : MonoBehaviour {
 		}
 	}
 
-    public void Takedown() {
+	public void Takedown() {
 		PlayerTakedown[] targets = FindObjectsOfType<PlayerTakedown>();
 		foreach (PlayerTakedown target in targets) {
 			if (target.playerNum == this.playerNum)

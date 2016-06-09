@@ -4,180 +4,144 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
-public class RoundManager : MonoBehaviour
-{
+public class RoundManager : MonoBehaviour {
 
-    public static RoundManager main;
-    public enum RoundState { Idle, Playing, AssassinRevealed, PresidentDown, PresidentSaved, TimeOut };
+	public static RoundManager main;
+	public enum RoundState { Idle, Playing, AssassinRevealed, PresidentDown, PresidentSaved, TimeOut };
 
-    public Animator mainTitle;
-    public Animator presidentDownTitle;
-    public ParticleSystem presidentDownParticles;
-    public ColorCorrectionCurves presidentDownColor;
-    public AudioSource presidentDownSound;
-    public Animator presidentSavedTitle;
-    public Animator outOfTimeTitle;
-    public Blur blur;
-    public AudioSource musicSource;
+	public Animator mainTitle;
+	public Animator presidentDownTitle;
+	public ParticleSystem presidentDownParticles;
+	public ColorCorrectionCurves presidentDownColor;
+	public AudioSource presidentDownSound;
+	public Animator presidentSavedTitle;
+	public Animator outOfTimeTitle;
+	public Blur blur;
+	public AudioSource musicSource;
 
-    public PlayerMovement disableAssassin;
-    public PlayerTakedown disableAssassinTakedown;
-    public PlayerMovement disableBodyguard;
+	public float roundTime = 60;
+	public Text roundTimeText;
 
-    RoundState state = RoundState.Idle;
+	public PlayerMovement disableAssassin;
+	public PlayerTakedown disableAssassinTakedown;
+	public PlayerMovement disableBodyguard;
 
-    GameScore gameScore;
-
+	RoundState state = RoundState.Idle;
 
     public GameObject player;
 
-    void Awake()
-    {
-        main = this;
-    }
+    void Awake() {
+		main = this;
+		roundTimeText.text = "" + Mathf.Round(roundTime);
+	}
 
-    void Start()
-    {
-        disableAssassin.enabled = false;
-        disableAssassinTakedown.enabled = false;
-        disableBodyguard.enabled = false;
+	void Start() {
+		disableAssassin.enabled = false;
+		disableAssassinTakedown.enabled = false;
+		disableBodyguard.enabled = false;
+		StartCoroutine(StartHideMainTitle());
+	}
 
-        //Is this where we should be choosing the spawn point?
-        SelectSpawn();
+	void Update() {
+		if (state == RoundState.Playing) {
+			roundTime -= Time.deltaTime;
+			if (roundTime < 0) {
+				roundTime = 0;
+				OutOfTime();
+			}
+			roundTimeText.text = "" + Mathf.Round(roundTime);
+		}
+	}
 
-        StartCoroutine(StartHideMainTitle());
+	IEnumerator StartHideMainTitle() {
+		while (mainTitle.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) {
+			yield return null;
+		}
 
-        gameScore = GameObject.FindGameObjectWithTag("Environment").GetComponent<GameScore>();
-    }
+        //while (true)
+        //{
+        //    if(Input.GetAxis("DpadX1") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(13,0,13), Quaternion.identity);
+        //        break;
+        //    }else if(Input.GetAxis("DpadX2") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(-13, 0, -13), Quaternion.identity);
+        //        break;
+        //    }
+        //    else if (Input.GetAxis("DpadY1") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(-13, 0, 13), Quaternion.identity);
+        //        break;
+        //    }
+        //    else if (Input.GetAxis("DpadY2") > 0)
+        //    {
+        //        Instantiate(player, new Vector3(13, 0, -13), Quaternion.identity);
+        //        break;
+        //    }
+        //}
 
-    void Update()
-    {
-        
-    }
+		mainTitle.gameObject.SetActive(false);
+		blur.enabled = false;
+		disableAssassin.enabled = true;
+		disableAssassinTakedown.enabled = true;
+		disableBodyguard.enabled = true;
+		musicSource.Play();
+		state = RoundState.Playing;
+	}
 
-    public RoundState GetRoundState()
-    {
-        return state;
-    }
+	public void AssassinRevealed() {
 
+	}
 
-    IEnumerator StartHideMainTitle()
-    {
-        while (mainTitle.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-        {
-            yield return null;
-        }
+	public void PresidentDown() {
+		if (state != RoundState.Playing)
+			return;
+		state = RoundState.PresidentDown;
+		presidentDownParticles.Play();
+		presidentDownTitle.gameObject.SetActive(true);
+		presidentDownTitle.SetTrigger("Go");
+		presidentDownColor.enabled = true;
+		presidentDownSound.Play();
+		musicSource.volume = 0.5f;
+		StartCoroutine(EPresidentDown());
+	}
 
+	IEnumerator EPresidentDown() {
+		yield return new WaitForSeconds(4);
+		NewRound();
+	}
 
-        mainTitle.gameObject.SetActive(false);
-        blur.enabled = false;
-        disableAssassin.enabled = true;
-        disableAssassinTakedown.enabled = true;
-        disableBodyguard.enabled = true;
-        musicSource.Play();
-        state = RoundState.Playing;
+	public void PresidentSaved() {
+		if (state != RoundState.Playing)
+			return;
+		state = RoundState.PresidentSaved;
+		blur.enabled = true;
+		presidentSavedTitle.SetTrigger("Go");
+		StartCoroutine(EPresidentSaved());
+	}
 
-        gameScore.newRoundStarted();
-    }
+	IEnumerator EPresidentSaved() {
+		yield return new WaitForSeconds(4);
+		NewRound();
+	}
 
-    public IEnumerator SelectSpawn()
-    {
+	public void OutOfTime() {
+		if (state != RoundState.Playing)
+			return;
+		state = RoundState.TimeOut;
+		blur.enabled = true;
+		outOfTimeTitle.SetTrigger("Go");
+		StartCoroutine(EOutOfTime());
+	}
 
-        while (state != RoundState.Playing)
-        {
-            if (Input.GetAxis("DpadX1") > 0)
-            {
-                Instantiate(player, new Vector3(13, 0, 13), Quaternion.identity);
+	IEnumerator EOutOfTime() {
+		yield return new WaitForSeconds(3);
+		NewRound();
+	}
 
-            }
-            else if (Input.GetAxis("DpadX1") < 0)
-            {
-                Instantiate(player, new Vector3(-13, 0, -13), Quaternion.identity);
-
-            }
-            else if (Input.GetAxis("DpadY1") > 0)
-            {
-                Instantiate(player, new Vector3(-13, 0, 13), Quaternion.identity);
-
-            }
-            else if (Input.GetAxis("DpadY1") < 0)
-            {
-                Instantiate(player, new Vector3(13, 0, -13), Quaternion.identity);
-
-            }
-            yield return new WaitForSeconds(4);
-        }
-    }
-    public void AssassinRevealed()
-    {
-
-    }
-
-    public void PresidentDown()
-    {
-        if (state != RoundState.Playing)
-            return;
-        state = RoundState.PresidentDown;
-        presidentDownParticles.Play();
-        presidentDownTitle.gameObject.SetActive(true);
-        presidentDownTitle.SetTrigger("Go");
-        presidentDownColor.enabled = true;
-        presidentDownSound.Play();
-        musicSource.volume = 0.5f;
-        StartCoroutine(EPresidentDown());
-    }
-
-    IEnumerator EPresidentDown()
-    {
-        gameScore.assassinWins();
-
-        yield return new WaitForSeconds(4);
-        NewRound();
-    }
-
-    public void PresidentSaved()
-    {
-        if (state != RoundState.Playing)
-            return;
-        state = RoundState.PresidentSaved;
-        blur.enabled = true;
-        presidentSavedTitle.SetTrigger("Go");
-        StartCoroutine(EPresidentSaved());
-    }
-
-    IEnumerator EPresidentSaved()
-    {
-        gameScore.bodyguardWins();
-
-        yield return new WaitForSeconds(4);
-        NewRound();
-    }
-
-    public void OutOfTime()
-    {
-        if (state != RoundState.Playing)
-            return;
-
-        state = RoundState.TimeOut;
-        blur.enabled = true;
-        outOfTimeTitle.SetTrigger("Go");
-
-        StartCoroutine(EOutOfTime());
-    }
-
-    IEnumerator EOutOfTime()
-    {
-        gameScore.bodyguardWins();
-        
-        yield return new WaitForSeconds(3);
-        NewRound();
-    }
-
-    public void NewRound()
-    {
-        SceneManager.LoadScene(0);
-
-        gameScore.newRoundStart();
-    }
+	public void NewRound() {
+		SceneManager.LoadScene(0);
+	}
 
 }
