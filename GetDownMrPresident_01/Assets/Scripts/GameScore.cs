@@ -36,8 +36,11 @@ public class GameScore : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        roundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RoundManager>();
-
+		redSecurity.enabled = false;
+		blueSecurity.enabled = true;
+		redAssassin.enabled = true;
+		blueAssassin.enabled = false;
+		roundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RoundManager>();
         scoreOne.text = firstPlayerScore.ToString();
         scoreTwo.text = secondPlayerScore.ToString();
         newRoundStarted();
