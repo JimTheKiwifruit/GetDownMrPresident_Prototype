@@ -17,16 +17,10 @@ public class PlayerTakedown : MonoBehaviour {
     }
     
 	void Update() {
+		// Assuming that player 1 is assassin, will need to be changed when player switching is implemented
 		if (playerNum > -1 && Input.GetButtonDown("AButton" + playerNum)) {
-
-            print("Button 1");
-            print(Input.GetButtonDown("AButton1"));
-            print("Button 2");
-            print(Input.GetButtonDown("AButton2"));
-            //print(this.name);
-            //print(playerNum);
-
-            Takedown();
+			print("button!!!!");
+			Takedown();
 		}
 	}
 	
@@ -55,11 +49,9 @@ public class PlayerTakedown : MonoBehaviour {
 			if (target.playerNum == this.playerNum)
 				continue;
 			if( name.Equals("Dev_Player_01 (Assassin)") && target.name.Equals("President") && TargetInRange(target)) {
-                print("president takedown");
 				RoundManager.main.PresidentDown();
 				DoTakedown(target);
 			} else if ( name.Equals("Dev_Player_01 (Bodyguard)") && target.name.Equals("Dev_Player_01 (Assassin)") && TargetInRange(target)) {
-                print("assassin takedown");
 				RoundManager.main.PresidentSaved();
 				DoTakedown(target);
 			}
@@ -68,32 +60,37 @@ public class PlayerTakedown : MonoBehaviour {
 		
 		
 		
-		//PlayerTakedown[] targets = FindObjectsOfType<PlayerTakedown>();
-		//foreach (PlayerTakedown target in targets) {
-		//	if (target.playerNum == this.playerNum)
-		//		continue;
-		//	if (Vector3.Distance(target.transform.position, this.transform.position) < minDistance) {
-		//		print("takedonw!!!! " + target.playerNum + "---" + this.playerNum);
-		//		print(Vector3.Distance(target.transform.position, transform.position));
+		
+		
+		
+		
+		/**
+		PlayerTakedown[] targets = FindObjectsOfType<PlayerTakedown>();
+		foreach (PlayerTakedown target in targets) {
+			if (target.playerNum == this.playerNum)
+				continue;
+			if (Vector3.Distance(target.transform.position, this.transform.position) < minDistance) {
+				print("takedonw!!!! " + target.playerNum + "---" + this.playerNum);
+				print(Vector3.Distance(target.transform.position, transform.position));
 
-		//		if (playerNum == 1 && this.name.Equals("Dev_Player_01 (Assassin)") {
-		//			if (target.gameObject.CompareTag("President")) {
-		//				RoundManager.main.PresidentDown();
-		//			} else {
-		//				break;
-		//			}
-		//		} else if (playerNum == 2 && this.name.Equals("Dev_Player_01 (Bodyguard)") {
-		//			if (target.gameObject.CompareTag("Assassin")) {
-		//				RoundManager.main.PresidentSaved();
-		//			}
-		//		} else {
-		//			continue;
-		//		}
+				if (playerNum == 1 && this.name.Equals("Dev_Player_01 (Assassin)") {
+					if (target.gameObject.CompareTag("President")) {
+						RoundManager.main.PresidentDown();
+					} else {
+						break;
+					}
+				} else if (playerNum == 2 && this.name.Equals("Dev_Player_01 (Bodyguard)") {
+					if (target.gameObject.CompareTag("Assassin")) {
+						RoundManager.main.PresidentSaved();
+					}
+				} else {
+					continue;
+				}
 
 				
-		//	}
-		//}
-		
+			}
+		}
+		**/
 	}
 
 }

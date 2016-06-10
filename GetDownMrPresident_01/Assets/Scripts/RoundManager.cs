@@ -59,10 +59,10 @@ public class RoundManager : MonoBehaviour
         if (state == RoundState.SpawnSelect)
         {
             // Once done with testing, these should be changed to 'Input.GetAxis("RightStickX + assassinPlayerNum")'
-            if (Input.GetAxis("RightStickX1") == 1) { SelectSpawnDirection("right"); }
-            else if (Input.GetAxis("RightStickX1") == -1) { SelectSpawnDirection("left"); }
-            else if (Input.GetAxis("RightStickY1") == 1) { SelectSpawnDirection("up"); }
-            else if (Input.GetAxis("RightStickY1") == -1) { SelectSpawnDirection("down"); }
+            if (Input.GetAxis("RightStickX" + assassinPlayerNum) == 1) { SelectSpawnDirection("right"); }
+            else if (Input.GetAxis("RightStickX" + assassinPlayerNum) == -1) { SelectSpawnDirection("left"); }
+            else if (Input.GetAxis("RightStickY" + assassinPlayerNum) == 1) { SelectSpawnDirection("up"); }
+            else if (Input.GetAxis("RightStickY" + assassinPlayerNum) == -1) { SelectSpawnDirection("down"); }
         }
     }
 
@@ -115,6 +115,7 @@ public class RoundManager : MonoBehaviour
             CrowdSpawner spawner = (CrowdSpawner)spawners[i];
             spawner.SpawnCrowd();
         }
+        print(spawners[0]);
 
         state = RoundState.Playing;
         gameScore.newRoundStarted();
